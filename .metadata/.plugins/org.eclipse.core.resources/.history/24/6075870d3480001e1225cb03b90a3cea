@@ -1,0 +1,64 @@
+package Banco;
+
+import java.sql.*;
+
+public class conexao {
+    public conexao() {
+    }
+
+    public static void main(String[] var0) {
+        String url = "jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL";
+        String usu = "RM552119";
+        String pass = "270998";
+
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection connection = DriverManager.getConnection(url, usu, pass);
+            if (connection != null) {
+                System.out.println("Conexão bem-sucedida!");
+
+
+                try {
+                    // Código que pode gerar exceções
+                    // configuração
+                    String insertQuery = "INSERT INTO TbConfiguracao(tema, notificacao, email, notif_news) VALUES(?, ?, ?, ?)";
+                    PreparedStatement stmt = connection.prepareStatement(insertQuery);
+                    stmt.setString(1, "d");
+                    stmt.setInt(2, 1);
+                    stmt.setInt(3, 0);
+                    stmt.setInt(4, 0);
+                    stmt.execute();
+
+
+
+//                    // perfil
+//                    insertQuery = "INSERT INTO TbPerfil(tema, notificacao, email, notif_news) VALUES(?, ?, ?, ?)";
+//                    stmt = connection.prepareStatement(insertQuery);
+//                    stmt.setString(1, "d");
+//                    stmt.setInt(2, 1);
+//                    stmt.setInt(3, 0);
+//                    stmt.setInt(4, 0);
+//                    stmt.execute();
+
+                    System.out.println("Usuario Cadastrado");
+                } catch (SQLException e) {
+                    // Tratamento da exceção
+                    System.out.println("Erro ao executar o comando SQL:");
+                    e.printStackTrace();
+                }
+
+
+
+                connection.close();
+            } else {
+                System.out.println("Falha na conexão");
+            }
+        } catch (ClassNotFoundException connection) {
+            System.err.println("Erro ao carregar o driver JDBC: " + connection.getMessage());
+        } catch (SQLException var6) {
+            System.err.println("Erro ao conectar ao banco de dados: " + var6.getMessage());
+        }
+
+    }
+
+}

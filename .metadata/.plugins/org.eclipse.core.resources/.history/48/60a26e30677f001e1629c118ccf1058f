@@ -1,0 +1,33 @@
+@charset "ISO-8859-1";
+/*Estilo do menu*/
+#marge{
+	background-color: rgb(134, 134, 134);
+	
+}
+
+
+#navegacao {
+	background-color: rgb(85, 85, 85);
+	
+}
+	
+#navbarTogglerDemo01{
+	margin-left: 14px ;
+	
+}
+
+.nav-item {
+	font-size: 18px;
+}
+
+
+
+
+
+/*Estilo da Home*/
+.princ {
+	color:rgb(0, 0, 0);
+	background-color: rgb(245, 245, 245);
+}
+
+

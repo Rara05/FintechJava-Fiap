@@ -1,0 +1,42 @@
+package Banco;
+
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+/**
+ * Servlet implementation class conexao
+ */
+public class conexao extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String nome = request.getParameter("nome");
+        String email = request.getParameter("email");
+
+        // Configurações do banco de dados (substitua pelos seus próprios detalhes)
+        String url = "jdbc:mysql://localhost:3306/seu_banco_de_dados";
+        String usuarioBD = "seu_usuario";
+        String senhaBD = "sua_senha";
+
+        try (Connection conexao = DriverManager.getConnection(url, usuarioBD, senhaBD)) {
+            String sql = "INSERT INTO tabela_usuarios (nome, email) VALUES (?, ?)";
+            try (PreparedStatement declaracao = conexao.prepareStatement(sql)) {
+                declaracao.setString(1, nome);
+                declaracao.setString(2, email);
+                declaracao.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        response.sendRedirect("cadastro.jsp");
+    }
+}
